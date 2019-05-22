@@ -15,20 +15,45 @@ class MyApp extends StatelessWidget {
 }
 
 class RandomWordsState extends State<RandomWords> {
-  // TODO Add build() method
-  // @override
-  // Widget build(BuildContext context) {
-    // final wordPair = WordPair.random();
-    // return Text(wordPair.asPascalCase);
-  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Startup Name Generator'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            tooltip: 'Search',
+            onPressed: null,
+          ),
+        ],
       ),
       body: _buildSuggestions(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('School'),
+          ),
+        ],
+        currentIndex: 0,
+//        selectedItemColor: Colors.amber[800],
+        onTap: null,
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add', // used by assistive technologies
+        child: Icon(Icons.add),
+        onPressed: null,
+      ),
     );
   }
 
@@ -61,4 +86,27 @@ class RandomWordsState extends State<RandomWords> {
 class RandomWords extends StatefulWidget {
   @override
   RandomWordsState createState() => RandomWordsState();
+}
+
+class MyButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        print('MyButton was tapped!');
+      },
+      child: Container(
+        height: 36.0,
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.lightGreen[500],
+        ),
+        child: Center(
+          child: Text('Engage'),
+        ),
+      ),
+    );
+  }
 }
