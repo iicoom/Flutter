@@ -4,6 +4,10 @@ import 'package:startup_name/modal_class/function.dart';
 import 'package:startup_name/modal_class/genres.dart';
 import 'package:startup_name/bloc/change_theme_bloc.dart';
 import 'package:startup_name/bloc/change_theme_state.dart';
+import 'package:startup_name/modal_class/movie.dart';
+import 'package:startup_name/screens/search_view.dart';
+import 'package:startup_name/screens/movie_detail.dart';
+import 'package:startup_name/screens/settings.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +18,8 @@ class MyApp extends StatelessWidget {
         title: 'Matinee',
         theme: ThemeData(
           primarySwatch: Colors.blue, canvasColor: Colors.transparent),
-        home: Text('欢迎来到首页...'),
+//        home: Text('欢迎来到首页...'),
+        home: MyHomePage(),
     );
   }
 }
@@ -53,6 +58,44 @@ class _MyHomePageState extends State<MyHomePage> {
                   _scaffoldKey.currentState.openDrawer();
                 }
             ),
+            centerTitle: true,
+            title: Text(
+              'Matinee',
+              style: state.themeData.textTheme.headline,
+            ),
+            backgroundColor: state.themeData.primaryColor,
+            actions: <Widget>[
+              IconButton(
+                color: state.themeData.accentColor,
+                icon: Icon(Icons.search),
+                onPressed: () async {
+                  if(_genres != null) {
+                    final Movie result = await showSearch(
+                      context: context,
+                      delegate: MovieSearch(
+                        themeData: state.themeData, genres: _genres
+                      )
+                    );
+                    if (result != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MovieDetailPage(
+                              movie: result,
+                              themeData: state.themeData,
+                              genres: _genres,
+                              heroId: '${result.id}search'
+                            )
+                        )
+                      );
+                    }
+                  }
+                },
+              )
+            ],
+          ),
+          drawer: Drawer(
+            child: SettingsPage(),
           ),
         );
       }
