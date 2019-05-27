@@ -8,6 +8,8 @@ import 'package:startup_name/modal_class/movie.dart';
 import 'package:startup_name/screens/search_view.dart';
 import 'package:startup_name/screens/movie_detail.dart';
 import 'package:startup_name/screens/settings.dart';
+import 'package:startup_name/screens/widgets.dart';
+import 'package:startup_name/api/endpoints.dart';
 
 void main() => runApp(MyApp());
 
@@ -96,6 +98,36 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           drawer: Drawer(
             child: SettingsPage(),
+          ),
+          body: Container(
+            color: state.themeData.primaryColor,
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              children: <Widget>[
+                DiscoverMovies(
+                  themeData: state.themeData,
+                  genres: _genres,
+                ),
+                ScrollingMovies(
+                  themeData: state.themeData,
+                  title: 'Top Rated',
+                  api: Endpoints.topRatedUrl(1),
+                  genres: _genres,
+                ),
+                ScrollingMovies(
+                  themeData: state.themeData,
+                  title: 'Now Playing',
+                  api: Endpoints.nowPlayingMoviesUrl(1),
+                  genres: _genres,
+                ),
+                ScrollingMovies(
+                  themeData: state.themeData,
+                  title: 'Popular',
+                  api: Endpoints.popularMoviesUrl(1),
+                  genres: _genres,
+                ),
+              ],
+            ),
           ),
         );
       }
