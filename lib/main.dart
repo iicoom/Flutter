@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
         title: 'Matinee',
         theme: ThemeData(
           primarySwatch: Colors.blue, canvasColor: Colors.transparent),
-//        home: Text('欢迎来到首页...'),
         home: MyHomePage(),
     );
   }
