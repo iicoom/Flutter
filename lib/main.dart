@@ -10,8 +10,14 @@ import 'package:startup_name/screens/movie_detail.dart';
 import 'package:startup_name/screens/settings.dart';
 import 'package:startup_name/screens/widgets.dart';
 import 'package:startup_name/api/endpoints.dart';
+import 'package:flutter/rendering.dart';
 
-void main() => runApp(MyApp());
+//void main() => runApp(MyApp());
+
+void main() {
+  debugPaintSizeEnabled=true;
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -125,6 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   api: Endpoints.popularMoviesUrl(1),
                   genres: _genres,
                 ),
+                FirstRoute()
               ],
             ),
           ),
@@ -133,4 +140,39 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+}
+
+class FirstRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      padding: const EdgeInsets.all(8.0),
+      child: Text('Open route'),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SecondRoute()),
+        );
+      },
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
 }
